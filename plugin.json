@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "uuid": "typingmind-repo-assistant",
+  "title": "GitHub Repository Assistant",
+  "iconURL": "",
+  "emoji": "🤖",
+  "implementationType": "javascript",
+  "openaiSpec": {
+    "name": "answer_repository_question",
+    "description": "Answers questions about GitHub repositories and provides insights about their content and structure",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "GitHub repository owner"
+        },
+        "repo": {
+          "type": "string",
+          "description": "GitHub repository name"
+        },
+        "question": {
+          "type": "string",
+          "description": "The question about the repository"
+        },
+        "context": {
+          "type": "string",
+          "description": "Additional context for the question"
+        }
+      },
+      "required": ["owner", "repo", "question"]
+    }
+  },
+  "userSettings": [
+    {
+      "name": "githubToken",
+      "label": "GitHub Token",
+      "type": "password",
+      "required": true,
+      "description": "GitHub Personal Access Token with repo access"
+    }
+  ],
+  "outputOptions": {
+    "type": "markdown",
+    "template": "# Repository Answer\n\n{{text}}\n\n{{#if relatedFiles.length}}\n## Related Files\n\n{{#each relatedFiles}}\n- [{{path}}]({{url}})\n{{/each}}\n{{/if}}\n\n{{#if suggestions.length}}\n## Suggestions\n\n{{#each suggestions}}\n- {{this}}\n{{/each}}\n{{/if}}"
+  }
+}
